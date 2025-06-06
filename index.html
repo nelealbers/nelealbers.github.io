@@ -11,6 +11,9 @@
       font-family: 'Inter', sans-serif;
       background-color: #FAF9F6;
       margin: 0;
+	  display: flex;
+	  height: 100%;
+	  flex-direction: column;
     }
     .sidebar {
       background-color: #b5e582;
@@ -41,11 +44,17 @@
     .tab-section.active {
       display: block;
     }
+	.page-wrapper {
+	  display: flex;
+	  flex-direction: row;
+	  flex: 1;
+	}
+
     footer {
       text-align: center;
       padding: 2rem 0;
       background: #FAF9F6;
-      margin-top: 3rem;
+      margin-top: auto;
     }
     @media (max-width: 768px) {
       .d-flex.flex-row {
@@ -61,7 +70,7 @@
 </head>
 <body>
 
-<div class="d-flex flex-row">
+<div class="page-wrapper">
   <!-- Sidebar -->
   <nav class="sidebar d-flex flex-column align-items-center p-3">
     <img src="assets/photo.png" alt="Nele Albers" class="profile-pic">
@@ -73,7 +82,7 @@
   </nav>
 
   <!-- Main Content -->
-  <div class="main-content">
+  <div class="main-content d-flex flex-column">
     <section id="about" class="tab-section active">
       <p>...</p>
     </section>
@@ -90,12 +99,12 @@
         <a href="https://orcid.org/0000-0002-0502-6176">ORCID</a>
       </p>
     </section>
-
-    <footer>
-      &copy; 2025 Nele Albers
-    </footer>
   </div>
 </div>
+
+<footer>
+  &copy; 2025 Nele Albers
+</footer>
 
 <script>
   function showSection(id) {
