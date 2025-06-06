@@ -161,7 +161,7 @@
     const sortedYears = Object.keys(byYear).sort((a, b) => b - a);
     sortedYears.forEach(year => {
       const section = document.createElement("div");
-      section.innerHTML = `<h4>${year}</h4><ul>` +
+      section.innerHTML = `<h4><span style="color: #0e8044">${year}</span></h4><ul>` +
         byYear[year].map(pub =>
           `<li>
             <a href="${pub.url}" target="_blank"><strong>${pub.title}</strong></a>
