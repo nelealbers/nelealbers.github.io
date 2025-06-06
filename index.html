@@ -58,6 +58,11 @@
      flex-direction: column;
      flex: 1;
     }
+	
+	.sidebar-inner {
+     position: sticky;
+     top: 2rem;
+    }
 
     footer {
       text-align: center;
@@ -85,13 +90,15 @@
 <div class="page-wrapper">
   <!-- Sidebar -->
   <nav class="sidebar d-flex flex-column align-items-center p-3">
+  <div class="sidebar-inner">
     <img src="assets/photo.png" alt="Nele Albers" class="profile-pic">
     <h4 class="text-white">Nele Albers</h4>
     <p class="text-white small">Postdoctoral Researcher</p>
     <a class="nav-link" href="#" onclick="showSection('about')">About</a>
     <a class="nav-link" href="#" onclick="showSection('publications')">Publications</a>
     <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
-  </nav>
+  </div>
+</nav>
 
   <!-- Main Content + Footer -->
     <div class="main-content-container d-flex flex-column flex-grow-1">
