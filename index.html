@@ -49,6 +49,12 @@
 	  flex-direction: row;
 	  flex: 1;
 	}
+	
+	.main-content-container {
+     display: flex;
+     flex-direction: column;
+     flex: 1;
+    }
 
     footer {
       text-align: center;
@@ -84,30 +90,31 @@
     <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
   </nav>
 
-  <!-- Main Content -->
-  <div class="main-content d-flex flex-column">
-    <section id="about" class="tab-section active">
-      <p>...</p>
-    </section>
-
-    <section id="publications" class="tab-section">
-      <div id="pubs">Loading publications from ORCID...</div>
-    </section>
-
-    <section id="contact" class="tab-section">
-      <br>
-      <p>Email: n.albers [at] tilburguniversity [dot] edu</p>
-      <p>
-        <a href="https://scholar.google.com/citations?user=B9_fB0cAAAAJ">Google Scholar</a> |
-        <a href="https://orcid.org/0000-0002-0502-6176">ORCID</a>
-      </p>
-    </section>
+  <!-- Main Content + Footer -->
+    <div class="main-content-container d-flex flex-column flex-grow-1">
+      <div class="main-content flex-grow-1">
+        <section id="about" class="tab-section active">
+          <p>...</p>
+        </section>
+        <section id="publications" class="tab-section">
+          <div id="pubs">Loading publications from ORCID...</div>
+        </section>
+        <section id="contact" class="tab-section">
+          <br>
+          <p>Email: n.albers [at] tilburguniversity [dot] edu</p>
+          <p>
+            <a href="https://scholar.google.com/citations?user=B9_fB0cAAAAJ">Google Scholar</a> |
+            <a href="https://orcid.org/0000-0002-0502-6176">ORCID</a>
+          </p>
+        </section>
+      </div>
+      <footer>
+        &copy; 2025 Nele Albers
+      </footer>
+    </div>
   </div>
-</div>
 
-<footer>
-  &copy; 2025 Nele Albers
-</footer>
+
 
 <script>
   function showSection(id) {
