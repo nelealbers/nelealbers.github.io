@@ -153,7 +153,7 @@
         headers: { Accept: "application/json" }
       }).then(res => res.json());
 	  
-	  if (fullWork["work-type"] != "software){
+	  if (fullWork["work-type"] != "other"){
 
 		  const title = fullWork.title?.title?.value || "No Title";
 		  const year = fullWork["publication-date"]?.year?.value || "No Year";
