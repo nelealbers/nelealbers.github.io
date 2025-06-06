@@ -152,17 +152,20 @@
       const fullWork = await fetch(`https://pub.orcid.org/v3.0/0000-0002-0502-6176/work/${putCode}`, {
         headers: { Accept: "application/json" }
       }).then(res => res.json());
+	  
+	  if (fullWork["work-type"] != "software){
 
-      const title = fullWork.title?.title?.value || "No Title";
-      const year = fullWork["publication-date"]?.year?.value || "No Year";
-      const journal = fullWork["journal-title"]?.value || "";
-      const url = fullWork["url"]?.value || "#";
+		  const title = fullWork.title?.title?.value || "No Title";
+		  const year = fullWork["publication-date"]?.year?.value || "No Year";
+		  const journal = fullWork["journal-title"]?.value || "";
+		  const url = fullWork["url"]?.value || "#";
 
-      const contributors = fullWork.contributors?.contributor || [];
-      const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
+		  const contributors = fullWork.contributors?.contributor || [];
+		  const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
 
-      if (!byYear[year]) byYear[year] = [];
-      byYear[year].push({ title, journal, url, authors });
+		  if (!byYear[year]) byYear[year] = [];
+		  byYear[year].push({ title, journal, url, authors });
+	  }
     }
 
     const sortedYears = Object.keys(byYear).sort((a, b) => b - a);
