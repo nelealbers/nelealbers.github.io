@@ -151,12 +151,11 @@
       const fullWork = await fetch(`https://pub.orcid.org/v3.0/0000-0002-0502-6176/work/${putCode}`, {
         headers: { Accept: "application/json" }
       }).then(res => res.json());
-	  
-	  console.log(fullWork["type"]);
-	  console.log("next");
+
 	  if (fullWork["type"] === "software") continue;
 	  if (fullWork["type"] === "data-set") continue;
 	  if (fullWork["type"] === "preprint") continue;
+	  if (fullWork["type"] === "conference-poster") continue;
 	
 	  const title = fullWork.title?.title?.value || "No Title";
 	  const year = fullWork["publication-date"]?.year?.value || "No Year";
