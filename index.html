@@ -96,6 +96,7 @@
     <p class="text-white small">Postdoctoral Researcher</p>
     <a class="nav-link" href="#" onclick="showSection('about')">About</a>
     <a class="nav-link" href="#" onclick="showSection('publications')">Publications</a>
+	<a class="nav-link" href="#" onclick="showSection('datasets')">Datasets</a>
     <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
 </nav>
 
@@ -107,6 +108,9 @@
         </section>
         <section id="publications" class="tab-section">
           <div id="pubs">Loading publications from ORCID...</div>
+        </section>
+		<section id="datasets" class="tab-section">
+          <div id="pubs-datasets">Loading datasets from ORCID...</div>
         </section>
         <section id="contact" class="tab-section">
           <br>
@@ -154,6 +158,57 @@
 
 	  if (fullWork["type"] === "software") continue;
 	  if (fullWork["type"] === "data-set") continue;
+	  if (fullWork["type"] === "preprint") continue;
+	  if (fullWork["type"] === "conference-poster") continue;
+	
+	  const title = fullWork.title?.title?.value || "No Title";
+	  const year = fullWork["publication-date"]?.year?.value || "No Year";
+	  const journal = fullWork["journal-title"]?.value || "";
+	  const url = fullWork["url"]?.value || "#";
+
+	  const contributors = fullWork.contributors?.contributor || [];
+	  const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
+
+	  if (!byYear[year]) byYear[year] = [];
+	  byYear[year].push({ title, journal, url, authors });
+    }
+
+    const sortedYears = Object.keys(byYear).sort((a, b) => b - a);
+    sortedYears.forEach(year => {
+      const section = document.createElement("div");
+      section.innerHTML = `<h4><span style="color: #0e8044">${year}</span></h4><ul>` +
+        byYear[year].map(pub =>
+          `<li>
+            <a href="${pub.url}" target="_blank"><strong>${pub.title}</strong></a>
+            ${pub.journal ? ` – <em>${pub.journal}</em>` : ""}
+            ${pub.authors ? `<br><small>${pub.authors}</small>` : ""}
+          </li>`
+        ).join("") + "</ul>";
+      container.appendChild(section);
+    });
+  });
+  
+  fetch("https://pub.orcid.org/v3.0/0000-0002-0502-6176/works", {
+    headers: { Accept: "application/json" }
+  })
+  .then(response => response.json())
+  .then(async data => {
+    const works = data.group;
+    const container = document.getElementById("pubs-datasets");
+    container.innerHTML = "";
+
+    const byYear = {};
+
+    for (const workGroup of works) {
+      const summary = workGroup["work-summary"][0];
+      const putCode = summary["put-code"];
+
+      const fullWork = await fetch(`https://pub.orcid.org/v3.0/0000-0002-0502-6176/work/${putCode}`, {
+        headers: { Accept: "application/json" }
+      }).then(res => res.json());
+
+	  if (fullWork["type"] === "journal-paper") continue;
+	  if (fullWork["type"] === "software") continue;
 	  if (fullWork["type"] === "preprint") continue;
 	  if (fullWork["type"] === "conference-poster") continue;
 	
