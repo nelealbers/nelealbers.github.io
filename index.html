@@ -96,7 +96,6 @@
     <p class="text-white small">Postdoctoral Researcher</p>
     <a class="nav-link" href="#" onclick="showSection('about')">About</a>
     <a class="nav-link" href="#" onclick="showSection('publications')">Publications</a>
-	<a class="nav-link" href="#" onclick="showSection('datasets')">Datasets</a>
     <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
 </nav>
 
@@ -109,12 +108,7 @@
         <section id="publications" class="tab-section">
           <div id="pubs">Loading publications from ORCID...</div>
 		  <br>
-          <p>
-            <a href="https://data.4tu.nl/authors/a859edcd-b294-4495-abb6-d45d9cd88d45">Datasets on 4TU.ResearchData</a>
-          </p>
-        </section>
-		<section id="datasets" class="tab-section">
-          <br>
+		  <br>
           <p>
             <a href="https://data.4tu.nl/authors/a859edcd-b294-4495-abb6-d45d9cd88d45">Datasets on 4TU.ResearchData</a>
           </p>
@@ -134,8 +128,6 @@
     </div>
   </div>
 
-
-
 <script>
   function showSection(id) {
     document.querySelectorAll('.tab-section').forEach(section => {
@@ -143,58 +135,67 @@
     });
     document.getElementById(id).classList.add('active');
   }
-
+ 
   fetch("https://pub.orcid.org/v3.0/0000-0002-0502-6176/works", {
     headers: { Accept: "application/json" }
   })
   .then(response => response.json())
-  .then(async data => {
+  .then(data => {
     const works = data.group;
-    const container = document.getElementById("pubs");
-    container.innerHTML = "";
-
-    const byYear = {};
-
-    for (const workGroup of works) {
+ 
+    const workPromises = works.map(workGroup => {
       const summary = workGroup["work-summary"][0];
       const putCode = summary["put-code"];
-
-      const fullWork = await fetch(`https://pub.orcid.org/v3.0/0000-0002-0502-6176/work/${putCode}`, {
+ 
+      return fetch(`https://pub.orcid.org/v3.0/0000-0002-0502-6176/work/${putCode}`, {
         headers: { Accept: "application/json" }
       }).then(res => res.json());
-
-	  if (fullWork["type"] === "software") continue;
-	  if (fullWork["type"] === "data-set") continue;
-	  if (fullWork["type"] === "preprint") continue;
-	  if (fullWork["type"] === "conference-poster") continue;
-	
-	  const title = fullWork.title?.title?.value || "No Title";
-	  const year = fullWork["publication-date"]?.year?.value || "No Year";
-	  const journal = fullWork["journal-title"]?.value || "";
-	  const url = fullWork["url"]?.value || "#";
-
-	  const contributors = fullWork.contributors?.contributor || [];
-	  const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
-
-	  if (!byYear[year]) byYear[year] = [];
-	  byYear[year].push({ title, journal, url, authors });
-    }
-
-    const sortedYears = Object.keys(byYear).sort((a, b) => b - a);
-    sortedYears.forEach(year => {
-      const section = document.createElement("div");
-      section.innerHTML = `<h4><span style="color: #0e8044">${year}</span></h4><ul>` +
-        byYear[year].map(pub =>
-          `<li>
-            <a href="${pub.url}" target="_blank"><strong>${pub.title}</strong></a>
-            ${pub.journal ? ` – <em>${pub.journal}</em>` : ""}
-            ${pub.authors ? `<br><small>${pub.authors}</small>` : ""}
-          </li>`
-        ).join("") + "</ul>";
-      container.appendChild(section);
     });
+ 
+    Promise.all(workPromises).then(allWorks => {
+      const byYear = {};
+      const container = document.getElementById("pubs");
+      container.innerHTML = "";
+ 
+      allWorks.forEach(fullWork => {
+        if (
+          ["software", "data-set", "preprint", "conference-poster"].includes(fullWork.type)
+        ) return;
+ 
+        const title = fullWork.title?.title?.value || "No Title";
+        const year = fullWork["publication-date"]?.year?.value || "No Year";
+        const journal = fullWork["journal-title"]?.value || "";
+        const url = fullWork["url"]?.value || "#";
+ 
+        const contributors = fullWork.contributors?.contributor || [];
+        const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
+ 
+        if (!byYear[year]) byYear[year] = [];
+        byYear[year].push({ title, journal, url, authors });
+      });
+ 
+      const sortedYears = Object.keys(byYear).sort((a, b) => b - a);
+      sortedYears.forEach(year => {
+        const section = document.createElement("div");
+        section.innerHTML = `<h4><span style="color: #0e8044">${year}</span></h4><ul>` +
+          byYear[year].map(pub =>
+            `<li>
+<a href="${pub.url}" target="_blank"><strong>${pub.title}</strong></a>
+              ${pub.journal ? ` – <em>${pub.journal}</em>` : ""}
+              ${pub.authors ? `<br><small>${pub.authors}</small>` : ""}
+</li>`
+          ).join("") + "</ul>";
+        container.appendChild(section);
+      });
+    }).catch(err => {
+      console.error("Error loading works", err);
+      document.getElementById("pubs").innerText = "Failed to load publications.";
+    });
+  })
+  .catch(err => {
+    console.error("Error fetching ORCID data", err);
+    document.getElementById("pubs").innerText = "Failed to load ORCID works.";
   });
-  
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
