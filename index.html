@@ -26,13 +26,6 @@
       overflow-y: auto;
 	  overflow: visible;  /* added for stickiness of sidebar content but does not seem to work yet so far */
     }
-	.sidebar-inner {
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
-    }
 	
     .sidebar .nav-link {
       color: #ffffff !important;
@@ -107,14 +100,12 @@
 <div class="page-wrapper">
   <!-- Sidebar -->
   <nav class="sidebar d-flex flex-column align-items-center p-3">
-  <div class="sidebar-inner">
     <img src="assets/photo.png" alt="Nele Albers" class="profile-pic">
     <h4 class="text-white">Nele Albers</h4>
     <p class="text-white small">Postdoctoral Researcher</p>
     <a class="nav-link" href="#" onclick="showSection('about')">About</a>
     <a class="nav-link" href="#" onclick="showSection('publications')">Publications</a>
     <a class="nav-link" href="#" onclick="showSection('contact')">Contact</a>
-	 </div>
 </nav>
 
   <!-- Main Content + Footer -->
