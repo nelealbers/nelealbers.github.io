@@ -41,6 +41,7 @@
     .main-content {
       padding: 2rem;
       flex-grow: 1;
+	  align-items: center; /* vertical center */
     }
     .tab-section {
       display: none;
@@ -103,8 +104,10 @@
     <div class="main-content-container d-flex flex-column flex-grow-1">
       <div class="main-content flex-grow-1">
         <section id="about" class="tab-section active">
+		<div class="content-wrapper">
           <p>I am a Postdoctoral Researcher in the School of Humanities and Digital Sciences at Tilburg University in the Netherlands. During my competitive swimming career that led me to complete my undergraduate studies in the US, I grew interested in how we can support people in achieving their long-term goals. And I experienced firsthand the importance of tailoring this support to individuals and the situations they are in. Now I am using my background in machine learning and especially reinforcement learning to adapt behavior change support to people and their situations over time. I am especially fascinated by integrating knowledge from Social Sciences, particularly Psychology, into AI approaches to directly benefit people and their health.</p>
           <p>While I focused on creating adaptive support for a conversational agent that helps people quit smoking and become more physically active during my PhD, my current emphasis is on preventing relapse in mentally ill people. This research is part of an NWO-funded <a href="https://www.nwo.nl/projecten/kich1gz0321002">KIC project</a>.
+		 </div>
 		</section>
         <section id="publications" class="tab-section">
           <div id="pubs">Loading publications from ORCID...</div>
