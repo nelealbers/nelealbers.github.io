@@ -24,6 +24,7 @@
 	  position: sticky;
       top: 0;
       overflow-y: auto;
+	  justify-content: center;
 	  overflow: visible;  /* added for stickiness of sidebar content but does not seem to work yet so far */
     }
     .sidebar .nav-link {
@@ -44,12 +45,7 @@
 	  display: flex;
 	  flex-direction: column;
     }
-    .tab-section {
-      display: none;
-    }
-    .tab-section.active {
-      display: block;
-    }
+
 	.page-wrapper {
 	  display: flex;
 	  flex-direction: row;
@@ -71,17 +67,16 @@
       margin-top: auto;
     }
 	
-	.tab-section {
-  display: none;
-  height: 100%;
-}
+    .tab-section {
+      display: none;
+      height: 100%;
+    }
 
-.tab-section.active {
-  display: flex;
-  justify-content: center;
- /* align-items: center;*/
-  flex-direction: column;
-}
+    .tab-section.active {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
 	
 	/* Mobile tweaks */
 @media (max-width: 768px) {
