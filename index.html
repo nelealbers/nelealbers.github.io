@@ -207,11 +207,7 @@
         headers: { Accept: "application/json" }
       }).then(res => res.json());
 
-	  console.log(fullWork["type"]);
-	  if (fullWork["type"] === "journal-paper") continue;
-	  if (fullWork["type"] === "software") continue;
-	  if (fullWork["type"] === "preprint") continue;
-	  if (fullWork["type"] === "conference-poster") continue;
+	  if (fullWork["type"] != "data-set") continue;
 	
 	  const title = fullWork.title?.title?.value || "No Title";
 	  const year = fullWork["publication-date"]?.year?.value || "No Year";
