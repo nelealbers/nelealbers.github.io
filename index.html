@@ -152,6 +152,8 @@
         headers: { Accept: "application/json" }
       }).then(res => res.json());
 	  
+	  console.log(fullWork["work-type"]);
+	  console.log("next");
 	  if (fullWork["work-type"] === "Software") continue;
 	
 	  const title = fullWork.title?.title?.value || "No Title";
