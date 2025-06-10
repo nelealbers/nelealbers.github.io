@@ -71,29 +71,17 @@
       margin-top: auto;
     }
 	
-	#about {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100%;
-    }
-	
-	#contact {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100%;
-    }
-	
-	#publications {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100%;
-    }
+	.tab-section {
+  display: none;
+  height: 100%;
+}
+
+.tab-section.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 	
 	/* Mobile tweaks */
 @media (max-width: 768px) {
