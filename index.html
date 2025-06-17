@@ -185,7 +185,7 @@
  
       allWorks.forEach(fullWork => {
         if (
-          ["software", "data-set", "preprint", "conference-poster"].includes(fullWork.type)
+          ["software", "data-set", "preprint", "conference-poster", "conference-abstract"].includes(fullWork.type)
         ) return;
  
         const title = fullWork.title?.title?.value || "No Title";
