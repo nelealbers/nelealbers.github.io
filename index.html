@@ -194,13 +194,13 @@
           ["software", "data-set", "preprint", "conference-poster"].includes(fullWork.type)
         ) return;
 		
-		console.log(fullWork.title)
+		console.log(fullWork.title.title)
 		
 		if (
           ["Perfect Fit: Identiteitsgebaseerde virtuele coach die ondersteunt bij stoppen met roken en meer bewegen - Ontwikkeling en geleerde lessen",
 		   "Perfect Fit: een identiteitsgebaseerde virtuele coach die ondersteunt bij stoppen met roken en meer bewegen",
 		   "Lessons learnt in developing a virtual coach for smoking cessation and physical activity promotion",
-		   "Evaluating Perfect Fit: A virtual coach-based mHealth intervention for smoking cessation and physical activity"].includes(fullWork.title)
+		   "Evaluating Perfect Fit: A virtual coach-based mHealth intervention for smoking cessation and physical activity"].includes(fullWork.title.title)
         ) return;
  
         const title = fullWork.title?.title?.value || "No Title";
