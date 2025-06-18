@@ -202,9 +202,9 @@
 		   "A mixed-methods evaluation of a virtual coach for smoking cessation and physical activity in adults"].includes(fullWork.title.title.value)
         ) return;
  
-        const title = fullWork.title?.title?.value || "No Title";
+        const basetitle = fullWork.title?.title?.value || "No Title";
 		const subtitle = fullWork.title?.subtitle?.value;
-		const title = subtitle ? `${title}: ${subtitle}` : title;
+		const title = subtitle ? `${basetitle}: ${subtitle}` : basetitle;
         const year = fullWork["publication-date"]?.year?.value || "No Year";
         const journal = fullWork["journal-title"]?.value || "";
         const url = fullWork["url"]?.value || "#";
