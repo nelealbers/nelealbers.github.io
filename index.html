@@ -211,7 +211,7 @@
  
         const contributors = fullWork.contributors?.contributor || [];
 		console.log(fullWork.contributors)
-		const authors = contributors.map(c => c["contributor-attributes"].["contributor-role"]?.value !== "editor" ? c["credit-name"]?.value || "" : "").join(", ");
+		const authors = contributors.map(c => c["contributor-attributes"]?.["contributor-role"]?.value !== "editor" ? c["credit-name"]?.value || "" : "").join(", ");
  
         if (!byYear[year]) byYear[year] = [];
         byYear[year].push({ title, journal, url, authors });
