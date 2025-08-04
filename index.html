@@ -210,6 +210,7 @@
         const url = fullWork["url"]?.value || "#";
  
         const contributors = fullWork.contributors?.contributor || [];
+		console.log(fullWork.contributors)
         const authors = contributors.map(c => c["credit-name"]?.value || "").join(", ");
  
         if (!byYear[year]) byYear[year] = [];
